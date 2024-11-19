@@ -203,7 +203,11 @@ nRF5340 Audio
 nRF Desktop
 -----------
 
-|no_changes_yet_note|
+* Updated:
+
+  * The :ref:`nrf_desktop_settings_loader` to make the :ref:`Zephyr Memory Storage (ZMS) <zephyr:zms_api>` the default settings backend for all board targets that use the MRAM technology.
+    As a result, all :ref:`zephyr:nrf54h20dk_nrf54h20` configurations were migrated from the NVS settings backend to the ZMS settings backend.
+  * The :ref:`zephyr:nrf54h20dk_nrf54h20` release configuration to enable the :ref:`nrf_desktop_watchdog`.
 
 nRF Machine Learning (Edge Impulse)
 -----------------------------------
@@ -233,7 +237,9 @@ Amazon Sidewalk samples
 Bluetooth samples
 -----------------
 
-|no_changes_yet_note|
+* Added:
+
+  * The :ref:`channel_sounding_ras_reflector` sample demonstrating how to implement a Channel Sounding Reflector that exposes the Ranging Responder GATT Service.
 
 Bluetooth Fast Pair samples
 ---------------------------
@@ -344,7 +350,8 @@ PMIC samples
 Protocol serialization samples
 ------------------------------
 
-|no_changes_yet_note|
+* Updated GPIO pins on nRF54L15 DK used for communication between the client and server over UART.
+  One of the previously selected pins was also used to drive an LED, which may have disrupted the UART communication.
 
 SDFW samples
 ------------

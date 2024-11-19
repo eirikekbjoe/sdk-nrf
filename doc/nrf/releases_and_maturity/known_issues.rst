@@ -1747,7 +1747,7 @@ The issues in this section are related to the :ref:`serial_lte_modem` applicatio
 .. rst-class:: wontfix v2-8-0 v2-7-0 v2-6-2 v2-6-1 v2-6-0 v2-5-3 v2-5-2 v2-5-1 v2-5-0 v2-4-4 v2-4-3 v2-4-2 v2-4-1 v2-4-0
 
 NCSDK-20457: Modem traces captured through UART are corrupted if RTT logs are simultaneously captured
-  When capturing modem traces through UART with `Cellular Monitor`_ app and simultaneously capturing RTT logs, for example, with J-Link RTT Viewer, the modem trace misses packets, and captured packets might have incorrect information.
+  When capturing modem traces through UART with the `Cellular Monitor app`_ and simultaneously capturing RTT logs, for example, with J-Link RTT Viewer, the modem trace misses packets, and captured packets might have incorrect information.
 
   **Affected platforms:** nRF9160, nRF9161, nRF9151
 
@@ -1822,6 +1822,9 @@ The issues in this section are related to the :ref:`nrf_desktop` application.
 
 .. note::
     nRF Desktop is also affected by the Bluetooth LE issue :ref:`NCSDK-19865 <ncsdk_19865>`.
+
+    nRF Desktop is also affected by :ref:`hogp_readme` library's issue :ref:`NCSDK-30288 <ncsdk_30288>`.
+    The issue may cause accessing data under ``NULL`` pointer in case of Bluetooth disconnection while forwarding a configuration channel operation in the :ref:`nrf_desktop_hid_forward`.
 
 .. rst-class:: v2-8-0 v2-7-0
 
@@ -2749,10 +2752,10 @@ Peripheral samples
 
 .. rst-class:: v2-8-0 v2-7-0
 
-NCSDK-30284: The :ref:`radio_test` sample only transmits the first burst of data in duty-cycle mode on the 4 Mbit data rate on the nRF54L15 SoC
+NCSDK-30284: The :ref:`radio_test` sample only transmits the first burst of data in duty-cycle mode on the 4 Mbit data rate
   When the ``data_rate`` parameter is set to ``nrf_4Mbit_BT04``  or ``nrf_4Mbit_BT06``, sending the ``start_duty_cycle_modulated_tx`` command results in transmission of the first burst of data after which radio becomes inactive.
 
-  **Affected platforms:** nRF54L15
+  **Affected platforms:** nRF54L15, nRF54H20
 
   **Workaround:** For ``nrf_4Mbit_BT04`` or ``nrf_4Mbit_BT06`` data rates, use only the constant transmission command ``start_tx_modulated_carrier`` instead of the duty-cycle one.
 
@@ -3041,6 +3044,15 @@ CIA-351: Connectivity issues with :ref:`lib_azure_iot_hub`
 
 Bluetooth libraries and services
 ================================
+
+.. _ncsdk_30288:
+
+.. rst-class:: v2-8-0 v2-7-0 v2-6-2 v2-6-1 v2-6-0 v2-5-3 v2-5-2 v2-5-1 v2-5-0 v2-4-4 v2-4-3 v2-4-2 v2-4-1 v2-4-0 v2-3-0 v2-2-0 v2-1-4 v2-1-3 v2-1-2 v2-1-1 v2-1-0 v2-0-2 v2-0-1 v2-0-0 v1-9-2 v1-9-1 v1-9-0 v1-8-0 v1-7-1 v1-7-0 v1-6-1 v1-6-0 v1-5-2 v1-5-1 v1-5-0 v1-4-2 v1-4-1 v1-4-0 v1-3-2 v1-3-1 v1-3-0 v1-2-1 v1-2-0 v1-1-0 v1-0-0 v0-4-0
+
+NCSDK-30288: The :c:func:`bt_hogp_rep_read` function of :ref:`hogp_readme` library does not forward ATT error code through the user callback
+  The library passes value of ``0`` to the user instead of the error code.
+
+  **Workaround:** Manually cherry-pick and apply the commit with the fix from the ``main`` branch (commit hash: ``0d227d82bbdf56a3c066021fa6c323a00107fe6f``).
 
 .. rst-class:: v2-4-3 v2-4-2 v2-4-1 v2-4-0
 
@@ -3585,6 +3597,8 @@ NCSDK-30263: direct-xip with revert does not work on nRF54L15
   The revert mechanism in direct-xip mode does not work on nRF54L15 devices.
 
   **Affected platforms:** nRF54L15
+
+  **Workaround:** Manually cherry-pick the commit ``ff0e8fabe1566349dbfd1786b31b325b46be205a`` from the main branch of the ``sdk-nrf`` repository.
 
 .. rst-class:: v2-8-0
 
